@@ -68,4 +68,4 @@ def start_parsing():
     print("Парсинг окончен")
 
 
-start_parsing()
+

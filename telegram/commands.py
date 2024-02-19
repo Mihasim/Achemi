@@ -17,7 +17,10 @@ class TelegramInterface:
         for task in searching.search_tags(tag):
             if max_difficult >= task[5] >= min_difficult:
                 task_list.append(task)
-        messages = random.sample(task_list, 10)
+        if len(task_list) >= 10:
+            messages = random.sample(task_list, 10)
+        else:
+            messages = random.sample(task_list, len(task_list))
         list_format_message = []
         for message_ in messages:
             list_format_message.append(self.format_message(message_))

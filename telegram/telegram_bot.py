@@ -10,7 +10,8 @@ tag = ""
 max_difficult = 0
 min_difficult = None
 name = ""
-
+interface = TelegramInterface()
+tasks = []
 
 @bot.message_handler(content_types=['text'])
 def start(message):
@@ -44,21 +45,13 @@ def get_max_difficult(message):
 
 
 def get_min_difficult(message):
-    global min_difficult
+    global min_difficult, tasks
     while min_difficult is None:
         try:
             min_difficult = int(message.text)
         except Exception:
             bot.send_message(message.from_user.id, 'Цифрами, пожалуйста')
-
-    bot.register_next_step_handler(message, send_answer)
-
-
-def send_answer(message):
-    global name, min_difficult, max_difficult
-    interface = TelegramInterface()
     tasks = interface.search_for_tag(tag, min_difficult, max_difficult)
-
     for task in tasks:
         bot.send_message(message.from_user.id, f'{task}')
 
@@ -66,7 +59,6 @@ def send_answer(message):
 def get_from_name(message):
     global name
     name = message.text
-    interface = TelegramInterface()
     message_ = interface.search_for_name(name)
     bot.send_message(message.from_user.id, message_)
 
