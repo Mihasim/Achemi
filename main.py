@@ -1,5 +1,5 @@
 from SQLalchemy.models import create_tables
-from services import interval_parsing, save_to_bd
+from services import interval_parsing
 from telegram.telegram_bot import start_bot
 
 if __name__ == "__main__":

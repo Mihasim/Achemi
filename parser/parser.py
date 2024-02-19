@@ -52,7 +52,7 @@ class Parser:
     @staticmethod
     def save_data_json(tasks: list, file_name: str) -> None:
         """Сохранение данных в файл json"""
-        with open(f"../{file_name}.json", "w", encoding="utf-8") as f:
+        with open(f"{file_name}.json", "w", encoding="utf-8") as f:
             json.dump(tasks, f)
         print("Данные сохранены")
 
