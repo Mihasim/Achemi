@@ -22,6 +22,7 @@ class Tasks(Base):
                         )
     index_task = Column(String(10), nullable=False)
     type = Column(String(255), nullable=False)
+    solved_count = Column(Integer())
 
     def __repr__(self):
         return f"{self.name}"
@@ -39,21 +40,9 @@ class Tags(Base):
         return f"{self.tag}"
 
 
-class ProblemStatistics(Base):
-    """Статистика задачи"""
-    __tablename__ = 'statistics'
-    id = Column(Integer(), primary_key=True)
-    contestId = Column(Integer(), nullable=False)
-    index_task = Column(String(10), nullable=False)
-    solved_count = Column(Integer())
-
-    def __repr__(self):
-        return f"{self.contestId}, {self.index_task}, {self.solved_count}"
-
-
 def create_tables(): Base.metadata.create_all(engine)
 def drop_tables(): Base.metadata.drop_all(engine)
 
 
-create_tables()
 #drop_tables()
+create_tables()

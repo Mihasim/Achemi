@@ -1,4 +1,5 @@
 from SQLalchemy.models import create_tables
+from parser.parser import start_parsing
 from services import interval_parsing
 from telegram.telegram_bot import start_bot
 

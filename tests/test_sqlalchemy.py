@@ -20,13 +20,11 @@ def searching_data():
     return Searching()
 
 
-def test_get_statistic(searching_data):
-    assert isinstance(searching_data.get_statistic(1, "A"), int)
-
-
 def test_search_name(searching_data):
-    assert isinstance(searching_data.search_name("Divisible Pairs"), list)
-    assert searching_data.search_name("Divisible Pairs") != []
+    searching_name = searching_data.search_name("Showing Off")
+    print(searching_name)
+    assert isinstance(searching_name, list)
+    assert searching_name != []
 
 
 def test_search_tags(searching_data):

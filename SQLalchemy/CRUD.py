@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from config import settings
 
-from SQLalchemy.models import Tasks, Tags, ProblemStatistics
+from SQLalchemy.models import Tasks, Tags
 
 engine = create_engine(
     f"postgresql+psycopg2://{settings.POSTGRESQL_USERNAME}:{settings.POSTGRESQL_PASSWORD}@{settings.POSTGRESQL_HOSTNAME}/{settings.POSTGRESQL_DATABASE}",
@@ -43,15 +43,6 @@ def add_task(task, tag_list: list) -> None:
 class Searching:
     def __init__(self):
         self.tasks = session.query(Tasks)
-        self.statistics = session.query(ProblemStatistics)
-
-    def get_statistic(self, contest_id: int, index_task: str) -> int:
-        """Получение статистики по задаче"""
-        prompt = self.statistics.filter(ProblemStatistics.contestId == contest_id)
-        for answer in prompt:
-            if answer.index_task == index_task:
-                return answer.solved_count
-
 
     def search_name(self, task_name: str) -> list:
         """Поиск задач по названию"""
@@ -64,7 +55,7 @@ class Searching:
                             answer.index_task,
                             answer.type,
                             answer.tags,
-                            self.get_statistic(answer.contestId, answer.index_task)]
+                            answer.solved_count]
                            )
         return answers
 
@@ -82,16 +73,11 @@ class Searching:
                                 answer.index_task,
                                 answer.type,
                                 answer.tags,
-                                self.get_statistic(answer.contestId, answer.index_task)]
+                                answer.solved_count]
                                )
         return answers
 
-
-
-
-#searching = Searching()
+searching = Searching()
 # searching.search_difficulty(1000)
-# searching.search_name("One-Dimensional Puzzle")
-#print(searching.search_tags('graphs'))
-
-
+print(searching.search_name("One-Dimensional Puzzle"))
+# print(searching.search_tags('graphs'))

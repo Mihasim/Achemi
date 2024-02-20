@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 from SQLalchemy.CRUD import add_task, add_one
-from SQLalchemy.models import Tasks, Tags, ProblemStatistics
+from SQLalchemy.models import Tasks, Tags
 from config import settings
 from parser.parser import start_parsing
 
@@ -36,7 +36,8 @@ async def task_collector(d):
         contestId=d["contestId"],
         index_task=d["index"],
         name=d["name"],
-        type=d["type"]
+        type=d["type"],
+        solved_count=d["solved_count"]
     )
 
     tags = [Tags(task=task, tag=tag) for tag in d["tags"]]
@@ -49,7 +50,7 @@ async def task_collector(d):
 
 async def save_task_in_db():
     """Если задачи нет в БД то добавляем ее"""
-    with open("../tasks.json", "r", encoding="utf-8") as rf:
+    with open("tasks.json", "r", encoding="utf-8") as rf:
         data = json.load(rf)
         steck = 200
         tasks = []
@@ -62,34 +63,7 @@ async def save_task_in_db():
         print("данные о задаче внесены в БД")
 
 
-async def statistic_collector(data):
-    """Собирает статистику, затем добавляет в БД"""
-    statistic = ProblemStatistics(
-        contestId=data["contestId"],
-        index_task=data["index_task"],
-        solved_count=data["solved_count"],
-    )
-#    search = [str(data["contestId"]), data["index_task"]]
-#    if search_double(ProblemStatistics, search):  # Проверка дубликатов
-    add_one(statistic)
-    await sleep(.1)
-
-
-async def save_statistic_in_db():
-    with open("../statistic.json", "r", encoding="utf-8") as rf:
-        data = json.load(rf)
-        steck = 200
-        tasks = []
-        for d in data:
-            tasks.append(asyncio.create_task(statistic_collector(d)))
-            if len(tasks) == steck:
-                await asyncio.gather(*tasks)
-                tasks = []
-        print("данные о статистике внесены в БД")
-
-
 loop = asyncio.get_event_loop()
-loop.run_until_complete(save_statistic_in_db())
 loop.run_until_complete(save_task_in_db())
 
 
