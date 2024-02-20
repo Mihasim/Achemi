@@ -11,7 +11,7 @@ def parser_data():
 
 
 def test_tasks_collector(parser_data):
-    parser_data_= parser_data.tasks_collector()
+    parser_data_ = parser_data.tasks_collector()
     assert isinstance(parser_data_, list)
     assert parser_data_ != []
 
@@ -31,4 +31,3 @@ def test_save_tasks_data_json(parser_data):
         data_tasks = parser_data.data_processing()
         parser_data.save_data_json(data_tasks, "tasks")
         assert json.dumps(data_tasks) == json.dumps(data)
-
