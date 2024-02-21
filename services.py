@@ -10,7 +10,7 @@ from telegram.telegram_bot import start_bot
 def start_parsing() -> None:
     """Запуск парсера и сохранение данных"""
     print("Начат парсинг")
-    url_codeforces = f"https://codeforces.com/api/problemset.problems"
+    url_codeforces = "https://codeforces.com/api/problemset.problems"
     parser = Parser(url_codeforces)
     data_tasks = parser.data_processing()
     parser.save_data_json(data_tasks, "tasks")
@@ -21,7 +21,7 @@ def start_parsing() -> None:
 
 create_tables()  # Пересоздаем таблицы в бд
 start_parsing()  # Парсим данные
-start_bot()
+start_bot()  # Запускаем бота
 
 
 """Запуск периодического парсинга и созжанение в бд"""

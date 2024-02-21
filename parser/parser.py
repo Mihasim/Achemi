@@ -20,7 +20,8 @@ class Parser:
                 i += 1
             return data_tasks
         else:
-            print("Ошибка получения данных о задачах в архиве codeforces", response.status_code)
+            print("Ошибка получения данных о задачах "
+                  "в архиве codeforces", response.status_code)
 
     def data_processing(self) -> list:
         """Обработка данных полученных с сайта
@@ -49,4 +50,3 @@ class Parser:
         with open(f"{file_name}.json", "w", encoding="utf-8") as f:
             json.dump(tasks, f)
         print("Данные сохранены")
-

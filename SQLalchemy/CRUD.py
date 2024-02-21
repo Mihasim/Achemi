@@ -1,7 +1,3 @@
-import json
-
-import asyncio
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
@@ -10,15 +6,21 @@ from config import settings
 from SQLalchemy.models import Tasks, Tags
 
 engine = create_engine(
-    f"postgresql+psycopg2://{settings.POSTGRESQL_USERNAME}:{settings.POSTGRESQL_PASSWORD}@{settings.POSTGRESQL_HOSTNAME}/{settings.POSTGRESQL_DATABASE}",
+    f"postgresql+psycopg2://{settings.POSTGRESQL_USERNAME}:"
+    f"{settings.POSTGRESQL_PASSWORD}@"
+    f"{settings.POSTGRESQL_HOSTNAME}/{settings.POSTGRESQL_DATABASE}",
     echo=True, pool_size=6, max_overflow=10)
-# дополнительные аргументы-ключевые слова, которые можно передать в функцию create_engine()
-# echo - Если задать True, то движок будет сохранять логи SQL в стандартный вывод. По умолчанию значение равно False
+# дополнительные аргументы-ключевые слова, которые можно передать
+# в функцию create_engine()
+# echo - Если задать True, то движок будет сохранять логи SQL в
+# стандартный вывод. По умолчанию значение равно False
 # pool_size - Определяет количество соединений для пула. По умолчанию — 5
-# max_overflow - Определяет количество соединений вне значения pool_size. По умолчанию — 10
-# encoding - Определяет кодировку SQLAlchemy. По умолчанию — UTF-8. Однако этот параметр не влияет на
-# кодировку всей базы данных
-# isolation_level - Уровень изоляции. Эта настройка контролирует степень изоляции одной транзакции.
+# max_overflow - Определяет количество соединений вне значения pool_size.
+# По умолчанию — 10
+# encoding - Определяет кодировку SQLAlchemy. По умолчанию — UTF-8.
+# Однако этот параметр не влияет на кодировку всей базы данных
+# isolation_level - Уровень изоляции. Эта настройка контролирует
+# степень изоляции одной транзакции.
 # Разные базы данных поддерживают разные уровни.
 
 session = Session(bind=engine)
@@ -90,8 +92,3 @@ def search_double(bd, search_data):
         return True
     else:
         return False
-
-
-
-
-

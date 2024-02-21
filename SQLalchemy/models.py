@@ -4,8 +4,10 @@ from sqlalchemy.orm import declarative_base, relationship
 
 from config import settings
 
-engine = create_engine(f"postgresql+psycopg2://{settings.POSTGRESQL_USERNAME}:{settings.POSTGRESQL_PASSWORD}@"
-                       f"{settings.POSTGRESQL_HOSTNAME}/{settings.POSTGRESQL_DATABASE}",
+engine = create_engine(f"postgresql+psycopg2://{settings.POSTGRESQL_USERNAME}"
+                       f":{settings.POSTGRESQL_PASSWORD}@"
+                       f"{settings.POSTGRESQL_HOSTNAME}/"
+                       f"{settings.POSTGRESQL_DATABASE}",
                        echo=True, pool_size=6, max_overflow=10)
 engine.connect()
 Base = declarative_base()
@@ -41,6 +43,5 @@ class Tags(Base):
 
 
 def create_tables():
-    #Base.metadata.drop_all(engine)  # Удаление таблиц
+    #  Base.metadata.drop_all(engine)  # Удаление таблиц
     Base.metadata.create_all(engine)  # Добавление таблиц
-
