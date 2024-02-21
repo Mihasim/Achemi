@@ -1,4 +1,6 @@
-import random
+import json
+
+import asyncio
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
@@ -77,7 +79,19 @@ class Searching:
                                )
         return answers
 
-searching = Searching()
-# searching.search_difficulty(1000)
-print(searching.search_name("One-Dimensional Puzzle"))
-# print(searching.search_tags('graphs'))
+
+def search_double(bd, search_data):
+    """Проверка на повторы"""
+    data_in_db = []
+    for data in session.query(bd).all():
+        *add_in_db, _ = (str(data)).split(", ")
+        data_in_db.append(add_in_db)
+    if search_data in data_in_db:
+        return True
+    else:
+        return False
+
+
+
+
+

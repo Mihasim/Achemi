@@ -1,5 +1,4 @@
 import json
-from typing import Any
 
 import requests
 
@@ -50,16 +49,4 @@ class Parser:
         with open(f"{file_name}.json", "w", encoding="utf-8") as f:
             json.dump(tasks, f)
         print("Данные сохранены")
-
-
-def start_parsing():
-    """Запуск парсера и сохранение данных"""
-    print("Начат парсинг")
-    url_codeforces = f"https://codeforces.com/api/problemset.problems"
-    parser = Parser(url_codeforces)
-    data_tasks = parser.data_processing()
-    parser.save_data_json(data_tasks, "tasks")
-    print("Парсинг окончен")
-
-start_parsing()
 

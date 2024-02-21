@@ -1,9 +1,5 @@
-from SQLalchemy.models import create_tables
-from parser.parser import start_parsing
-from services import interval_parsing
-from telegram.telegram_bot import start_bot
+from services import start_parsing
 
 if __name__ == "__main__":
-    create_tables()  # Пересоздаем таблицы в бд
-    interval_parsing(60)  # Запускаем парсинг с периодичностью в час
-    start_bot()
+    start_parsing()  # Запускаем парсинг с периодичностью в час
+

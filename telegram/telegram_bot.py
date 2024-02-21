@@ -13,6 +13,7 @@ name = ""
 interface = TelegramInterface()
 tasks = []
 
+
 @bot.message_handler(content_types=['text'])
 def start(message):
     if message.text == "/tag":
@@ -38,8 +39,13 @@ def get_max_difficult(message):
     while max_difficult == 0:
         try:
             max_difficult = int(message.text)
+            if max_difficult < 0:
+                bot.send_message(message.from_user.id, 'Число должно быть положительным')
+                max_difficult = 0
         except Exception:
+            max_difficult = 0
             bot.send_message(message.from_user.id, 'Цифрами, пожалуйста')
+
     bot.send_message(message.from_user.id, 'Введите минимальный уровень сложности')
     bot.register_next_step_handler(message, get_min_difficult)
 
@@ -65,6 +71,4 @@ def get_from_name(message):
 
 def start_bot():
     bot.polling(none_stop=True, interval=0)
-
-
 start_bot()
