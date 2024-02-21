@@ -45,7 +45,6 @@ async def task_collector(d):
 #    search = [str(d["contestId"]), d["index"]]
 #    if search_double(ProblemStatistics, search):  # Проверка дубликатов
     add_task(task, tags)
-    await sleep(.1)
 
 
 async def save_task_in_db():

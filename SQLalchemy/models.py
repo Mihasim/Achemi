@@ -40,9 +40,7 @@ class Tags(Base):
         return f"{self.tag}"
 
 
-def create_tables(): Base.metadata.create_all(engine)
-def drop_tables(): Base.metadata.drop_all(engine)
+def create_tables():
+    #Base.metadata.drop_all(engine)  # Удаление таблиц
+    Base.metadata.create_all(engine)  # Добавление таблиц
 
-
-#drop_tables()
-create_tables()

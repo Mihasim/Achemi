@@ -16,7 +16,14 @@ def test_format_message(commands):
 
 
 def test_search_for_tag(commands):
-    dada = commands.search_for_tag("graphs", 1000, 5000)
-    print(dada)
-    assert isinstance(dada, list)
-    assert dada != []
+    data = commands.search_for_tag("graphs", 1000, 5000)
+    assert isinstance(data, list)
+    assert data != []
+    nothing_data = commands.search_for_tag("brad", 1000, 5000)
+    assert nothing_data == ['По запросу ничего не найдено']
+
+
+def test_search_for_name(commands):
+    data = commands.search_for_name('Final Countdown')
+    assert data == ("Название задачи Final Countdown, Id соревнования 1932, индекс задачи в соревновании 'E',"
+                    " тип PROGRAMMING, теги [implementation, math, number theory], сложность 4174")
