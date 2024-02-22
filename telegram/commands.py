@@ -11,7 +11,7 @@ class TelegramInterface:
                    f"Id соревнования {task_data[1]}, "
                    f"индекс задачи в соревновании '{task_data[2]}', "
                    f"тип {task_data[3]}, "
-                   f"теги {task_data[4]}, сложность {task_data[5]}")
+                   f"теги {task_data[4]}, колличество решений {task_data[5]}")
         return message
 
     def search_for_tag(self, tag: str, min_difficult: int,

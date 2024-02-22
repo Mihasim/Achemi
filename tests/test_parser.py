@@ -26,8 +26,8 @@ def test_save_tasks_data_json(parser_data):
     """
     Проверка соответствует ли содержание файла тому что необходимо было сохранить
     """
+    data_tasks = parser_data.data_processing()
+    parser_data.save_data_json(data_tasks, "tasks")
     with open("tasks.json", "r", encoding="utf-8") as rf:
         data = json.load(rf)
-        data_tasks = parser_data.data_processing()
-        parser_data.save_data_json(data_tasks, "tasks")
         assert json.dumps(data_tasks) == json.dumps(data)
